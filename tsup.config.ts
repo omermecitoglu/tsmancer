@@ -1,7 +1,8 @@
+import InlineImportPlugin from "esbuild-plugin-inline-import";
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  outDir: "dist",
+  outDir: "bin",
   entry: [
     "src/index.ts",
   ],
@@ -10,7 +11,10 @@ export default defineConfig({
   splitting: false,
   clean: true,
   external: [
+    "typescript",
+    "yargs",
   ],
   esbuildPlugins: [
+    InlineImportPlugin({ filter: /\.hbs$/ }),
   ],
 });
