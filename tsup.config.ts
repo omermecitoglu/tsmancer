@@ -1,3 +1,4 @@
+import InlineImportPlugin from "esbuild-plugin-inline-import";
 import { defineConfig } from "tsup";
 
 export default defineConfig({
@@ -12,5 +13,6 @@ export default defineConfig({
   external: [
   ],
   esbuildPlugins: [
+    InlineImportPlugin({ filter: /\.hbs$/ }),
   ],
 });
