@@ -1,13 +1,13 @@
 {
   "type": "module",
   "files": [
-    "dist/"
+    "bin/"
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "types": "./bin/index.d.ts",
+      "import": "./bin/index.js",
+      "require": "./bin/index.cjs"
     }
   },
   "scripts": {
