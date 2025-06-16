@@ -1,0 +1,11 @@
+import { type ZodType, z } from "zod/v4";
+{{#each dependencies}}
+import type { {{this}} } from "./{{this}}";
+{{/each}}
+
+/**
+ * {{{description}}}
+ */
+export type {{schemaName}} = {{{body}}};
+
+export const schemaOf{{schemaName}} = {{{zodSchema}}} as unknown as ZodType<{{schemaName}}, {{schemaName}}>;
