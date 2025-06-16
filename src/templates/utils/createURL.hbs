@@ -1,0 +1,19 @@
+export function createURL(endPoint: string, queryParams: Record<string, unknown> = {}) {
+  if (!process.env.{{envName}}) {
+    throw new Error("Base URL is not defined for this service! Please add {{envName}} to the environment variables.");
+  }
+  const url = new URL(endPoint, process.env.{{envName}});
+  for (const [key, value] of Object.entries(queryParams)) {
+    if (value === undefined) continue;
+    if (typeof value === "string") {
+      url.searchParams.append(key, value);
+    } else if (Array.isArray(value)) {
+      for (const item of value) {
+        url.searchParams.append(key, item);
+      }
+    } else {
+      url.searchParams.append(key, JSON.stringify(value));
+    }
+  }
+  return url;
+}
