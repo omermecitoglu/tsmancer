@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import crypto from "node:crypto";
 import deepEqual from "../utils/deepEqual";
 import type { ReferenceObject } from "@omer-x/openapi-types/reference";
 import type { SchemaObject } from "@omer-x/openapi-types/schema";
@@ -26,7 +26,7 @@ export function findSchemaName(
       return schemaName;
     }
   }
-  const schemaName = "Schema" + randomUUID().toUpperCase().replaceAll("-", "");
+  const schemaName = "Schema" + crypto.randomUUID().toUpperCase().replaceAll("-", "");
   database[schemaName] = targetSchema;
   return schemaName;
 }

@@ -21,7 +21,7 @@ type Template = {
     schemaName: string,
   }[],
   queryParameters: null | {
-    schemaName: string,
+    schemaName: string | null,
   },
   requestBody: null | {
     schemaName: string,
@@ -67,7 +67,7 @@ export function generateOperation(
   }));
 
   const queryParameters = operation.queryParameters && {
-    schemaName: findSchemaName(operation.queryParameters, schemaDB) ?? "unknown",
+    schemaName: findSchemaName(operation.queryParameters, schemaDB),
   };
 
   const requestBody = operation.requestBody && {
