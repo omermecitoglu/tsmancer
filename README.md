@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/omermecitoglu/tsmancer/main/assets/logo.png" alt="tsmancer logo" />
+
 # tsmancer
 
 [![npm version](https://img.shields.io/npm/v/@omer-x/tsmancer?logo=npm&logoColor=CB3837&color=CB3837)](https://www.npmjs.com/package/@omer-x/tsmancer)
