@@ -11,6 +11,7 @@ export default defineConfig({
   splitting: false,
   clean: true,
   external: [
+    "typescript",
   ],
   esbuildPlugins: [
     InlineImportPlugin({ filter: /\.hbs$/ }),
