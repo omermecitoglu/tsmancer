@@ -1,0 +1,64 @@
+{{#each importedSchemas}}
+{{#if validation}}
+import { schemaOf{{schemaName}}, type {{schemaName}} } from "../schemas/{{schemaName}}";
+{{else}}
+import { type {{schemaName}} } from "../schemas/{{schemaName}}";
+{{/if}}
+{{/each}}
+import { createURL } from "../utils/createURL";
+import { parseZodSchema } from "../utils/parseZodSchema";
+
+{{#if jsDoc.length}}
+/**
+{{#each jsDoc}}
+ * {{{this}}}
+{{/each}}
+ */
+{{/if}}
+export default async function(
+  {{#each pathParameters}}
+  {{name}}: {{schemaName}},
+  {{/each}}
+  {{#if queryParameters}}
+  queryParams: {{queryParameters.schemaName}},
+  {{/if}}
+  {{#if requestBody}}
+  requestBody: {{requestBody.schemaName}},
+  {{/if}}
+) {
+  {{#each pathParameters}}
+  {{name}} = parseZodSchema(schemaOf{{schemaName}}, {{name}});
+  {{/each}}
+  {{#if queryParameters}}
+  const url = createURL({{{endpoint}}}, parseZodSchema(schemaOf{{queryParameters.schemaName}}, queryParams));
+  {{else}}
+  const url = createURL({{{endpoint}}});
+  {{/if}}
+  const response = await fetch(url, {
+    method: "{{method}}",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    {{#if requestBody}}
+    body: JSON.stringify(parseZodSchema(schemaOf{{requestBody.schemaName}}, requestBody)),
+    {{/if}}
+  });
+  switch (response.status) {
+    {{#each responses}}
+    case {{statusCode}}: {
+      {{#if schemaName}}
+      const content = await response.json() as {{schemaName}};
+      {{else}}
+      const content = null;
+      {{/if}}
+      return {
+        success: response.ok,
+        content,
+      };
+    }
+    {{/each}}
+    default: {
+      throw new Error(`Undocumented response from {{operationId}} ({{method}} ${ {{~{endpoint}~}} })`);
+    }
+  }
+}
