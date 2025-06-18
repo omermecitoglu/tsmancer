@@ -27,10 +27,13 @@ describe("fetchOpenApiSpec", () => {
   it("should return null if file does not exist", async () => {
     const mockPath = path.resolve("./nonexistent-file.json");
 
+    const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => { /* do nothing */ });
     vi.spyOn(fs, "readFile").mockRejectedValue(new Error("ENOENT: no such file or directory"));
 
     const result = await fetchOpenApiSpec(mockPath);
     expect(result).toBeNull();
+    expect(consoleSpy).toHaveBeenCalled();
+    consoleSpy.mockRestore();
   });
 
   it("should throw an error for invalid JSON in file", async () => {
