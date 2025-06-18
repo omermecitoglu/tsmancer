@@ -41,8 +41,9 @@ describe("generateOperation", () => {
     const components: ComponentsObject = {};
 
     const output = generateOperation(method, pathName, rawOperation, schemaDB, components);
-    expect(output).toContain('import { schemaOfstringSchema, type stringSchema } from "../schemas/stringSchema";');
-    expect(output).toContain('import { type ObjectSchema } from "../schemas/ObjectSchema";');
+    expect(output).toContain('import type stringSchema from "../schemas/stringSchema";');
+    expect(output).toContain('import { schemaOfstringSchema } from "../zod-schemas/stringSchema";');
+    expect(output).toContain('import type ObjectSchema from "../schemas/ObjectSchema";');
     expect(output).toContain('import { createURL } from "../utils/createURL";');
     expect(output).toContain('import { parseZodSchema } from "../utils/parseZodSchema";');
     expect(output).toContain("* @deprecated This operation is deprecated.");
@@ -127,8 +128,9 @@ describe("generateOperation", () => {
     const schema1 = "Schema00000000000000000000000000000001";
 
     const output = generateOperation(method, pathName, rawOperation, schemaDB, components);
-    expect(output).toContain(`import { schemaOf${schema1}, type ${schema1} } from "../schemas/${schema1}";`);
-    expect(output).toContain('import { type ObjectSchema } from "../schemas/ObjectSchema";');
+    expect(output).toContain(`import type ${schema1} from "../schemas/${schema1}";`);
+    expect(output).toContain(`import { schemaOf${schema1} } from "../zod-schemas/${schema1}";`);
+    expect(output).toContain('import type ObjectSchema from "../schemas/ObjectSchema";');
     expect(output).toContain('import { createURL } from "../utils/createURL";');
     expect(output).toContain('import { parseZodSchema } from "../utils/parseZodSchema";');
     expect(output).toContain("* @param queryParams - Query Parameters");
@@ -178,8 +180,9 @@ describe("generateOperation", () => {
     const components: ComponentsObject = {};
 
     const output = generateOperation(method, pathName, rawOperation, schemaDB, components);
-    expect(output).toContain('import { schemaOfObjectSchema, type ObjectSchema } from "../schemas/ObjectSchema";');
-    expect(output).toContain('import { type ObjectSchema } from "../schemas/ObjectSchema";');
+    expect(output).toContain('import type ObjectSchema from "../schemas/ObjectSchema";');
+    expect(output).toContain('import { schemaOfObjectSchema } from "../zod-schemas/ObjectSchema";');
+    expect(output).toContain('import type ObjectSchema from "../schemas/ObjectSchema";');
     expect(output).toContain('import { createURL } from "../utils/createURL";');
     expect(output).toContain('import { parseZodSchema } from "../utils/parseZodSchema";');
     expect(output).toContain("* @param requestBody - Request Body");
@@ -229,8 +232,9 @@ describe("generateOperation", () => {
     const components: ComponentsObject = {};
 
     const output = generateOperation(method, pathName, rawOperation, schemaDB, components);
-    expect(output).toContain('import { schemaOfStringSchema, type StringSchema } from "../schemas/StringSchema";');
-    expect(output).toContain('import { type ObjectSchema } from "../schemas/ObjectSchema";');
+    expect(output).toContain('import type StringSchema from "../schemas/StringSchema";');
+    expect(output).toContain('import { schemaOfStringSchema } from "../zod-schemas/StringSchema";');
+    expect(output).toContain('import type ObjectSchema from "../schemas/ObjectSchema";');
     expect(output).toContain('import { createURL } from "../utils/createURL";');
     expect(output).toContain('import { parseZodSchema } from "../utils/parseZodSchema";');
     expect(output).toContain("* @param id - ID path parameter");
@@ -279,8 +283,9 @@ describe("generateOperation", () => {
     const components: ComponentsObject = {};
 
     const output = generateOperation(method, pathName, rawOperation, schemaDB, components);
-    expect(output).toContain('import { schemaOfStringSchema, type StringSchema } from "../schemas/StringSchema";');
-    expect(output).toContain('import { type ObjectSchema } from "../schemas/ObjectSchema";');
+    expect(output).toContain('import type StringSchema from "../schemas/StringSchema";');
+    expect(output).toContain('import { schemaOfStringSchema } from "../zod-schemas/StringSchema";');
+    expect(output).toContain('import type ObjectSchema from "../schemas/ObjectSchema";');
     expect(output).toContain('import { createURL } from "../utils/createURL";');
     expect(output).toContain('import { parseZodSchema } from "../utils/parseZodSchema";');
     expect(output).toContain("* @param id - missing-description");

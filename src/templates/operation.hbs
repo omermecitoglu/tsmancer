@@ -1,8 +1,9 @@
 {{#each importedSchemas}}
 {{#if validation}}
-import { schemaOf{{schemaName}}, type {{schemaName}} } from "../schemas/{{schemaName}}";
+import type {{schemaName}} from "../schemas/{{schemaName}}";
+import { schemaOf{{schemaName}} } from "../zod-schemas/{{schemaName}}";
 {{else}}
-import { type {{schemaName}} } from "../schemas/{{schemaName}}";
+import type {{schemaName}} from "../schemas/{{schemaName}}";
 {{/if}}
 {{/each}}
 import { createURL } from "../utils/createURL";

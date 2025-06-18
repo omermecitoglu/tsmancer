@@ -35,6 +35,10 @@ export default function generateConfigs(outputFolder: string, dependencies: stri
         types: `./${outputFolder}/index.d.ts`,
       },
       "./*": `./${outputFolder}/schemas/*.ts`,
+      "./zod/*": {
+        import: `./${outputFolder}/zod-schemas/*.js`,
+        types: `./${outputFolder}/zod-schemas/*.d.ts`,
+      },
     },
     scripts: {
       test: "echo \"Error: no test specified\" && exit 1",

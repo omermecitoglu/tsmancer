@@ -11,6 +11,7 @@ import { generateOperation } from "./templates/operation";
 import { generateSchema } from "./templates/schema";
 import { generateUtilForURL } from "./templates/utils/createURL";
 import { generateUtilForZod } from "./templates/utils/parseZodSchema";
+import { generateZodSchema } from "./templates/zod-schema";
 
 const program = new Command();
 
@@ -68,6 +69,12 @@ const options = program.opts<{ source: string, output: string }>();
         `${schemaName}.ts`,
         outputDir,
         "src/schemas",
+      );
+      await createFile(
+        generateZodSchema(schemaName, schema, spec.components?.schemas ?? {}),
+        `${schemaName}.ts`,
+        outputDir,
+        "src/zod-schemas",
       );
     }
 
