@@ -34,7 +34,7 @@ export default function generateConfigs(outputFolder: string, dependencies: stri
         import: `./${outputFolder}/index.js`,
         types: `./${outputFolder}/index.d.ts`,
       },
-      "./*": `./${outputFolder}/schemas/*.ts`,
+      "./*": `./${outputFolder}/schemas/*.d.ts`,
       "./zod/*": {
         import: `./${outputFolder}/zod-schemas/*.js`,
         types: `./${outputFolder}/zod-schemas/*.d.ts`,
