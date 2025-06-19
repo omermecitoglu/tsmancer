@@ -69,4 +69,10 @@ describe("deepEqual", () => {
     expect(deepEqual([1, [2, 3]], [1, [2, 4]])).toBe(false);
     expect(deepEqual([[1, 2], [3, 4]], [[1, 2], [3, 5]])).toBe(false);
   });
+
+  it("should return false for different size arrays", () => {
+    const input1 = ["USER_NOT_FOUND"];
+    const input2 = ["USER_NOT_FOUND", "USER_NOT_IN_SCOREBOARD"];
+    expect(deepEqual(input1, input2)).toBe(false);
+  });
 });
