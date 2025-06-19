@@ -11,7 +11,7 @@ export default function deepEqual(a: unknown, b: unknown): boolean {
     case "object": {
       if (!a || !b) return a === b;
       if (Array.isArray(a) && Array.isArray(b)) {
-        return a.every((item, index) => deepEqual(item, b[index]));
+        return a.length === b.length && a.every((item, index) => deepEqual(item, b[index]));
       }
       if (Object.keys(a).length !== Object.keys(b).length) return false;
       return Object.entries(a).every(([key, value]) => {
