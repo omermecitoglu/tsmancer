@@ -89,7 +89,7 @@ describe("generateOperation", () => {
     expect(output).toContain('"Content-Type": "application/json",');
     expect(output).toContain("switch (response.status) {");
     expect(output).toContain("case 201: {");
-    expect(output).toContain("const content = await response.json() as unknown;");
+    expect(output).toContain("const content = null;");
     expect(output).toContain('throw new Error(`Undocumented response from test (POST ${"/example"})`);');
   });
 

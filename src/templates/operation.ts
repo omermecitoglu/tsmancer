@@ -77,7 +77,7 @@ export function generateOperation(
 
   const responses = Object.entries(operation.responses).map(([statusCode, response]) => ({
     statusCode,
-    schemaName: findSchemaName(getJsonSchema(response), schemaDB) ?? "unknown",
+    schemaName: findSchemaName(getJsonSchema(response), schemaDB) ?? "",
   }));
 
   const dependencies = [
@@ -88,7 +88,7 @@ export function generateOperation(
   ];
 
   return render<Template>(operationTemplate)({
-    importedSchemas: dependencies.filter(dep => dep.schemaName !== "unknown"),
+    importedSchemas: dependencies.filter(dep => dep.schemaName && dep.schemaName !== "unknown"),
     isCacheable: method === "GET",
     method,
     endpoint: operation.pathParameters.length ? `\`${pathName.replaceAll("{", "${")}\`` : `"${pathName}"`,
