@@ -56,10 +56,10 @@
   "peerDependencies": {
     "@omer-x/openapi-types": "^1",
     "commander": "^14",
-    "json-schema-to-zod": "^2",
     "zod": "^3"
   },
   "dependencies": {
+    "@omer-x/json-schema-to-zod": "^1.0.0-alpha.2",
     "@omer-x/typesculptor": "^1.0.0-alpha.1",
     "handlebars": "^4.7.8"
   },
