@@ -1,4 +1,8 @@
-import { type ZodType, z } from "zod/v4";
-import type {{schemaName}} from "../schemas/{{schemaName}}";
+import { z } from "zod/v4";
+{{#each dependencies}}
+import { schemaOf{{this}} as {{this}} } from "./{{this}}";
+{{/each}}
 
-export const schemaOf{{schemaName}} = {{{zodSchema}}} as unknown as ZodType<{{schemaName}}, {{schemaName}}>;
+export type TypeOf{{schemaName}} = {{{zodType}}};
+
+export const schemaOf{{schemaName}} = {{{zodSchema}}} as unknown as TypeOf{{schemaName}};

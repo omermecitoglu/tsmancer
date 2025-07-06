@@ -17,10 +17,34 @@ describe("generateZodSchema", () => {
       },
       additionalProperties: false,
     };
-    const output = generateZodSchema("UserDTO", input, {});
-    expect(output).toContain('import { type ZodType, z } from "zod/v4";');
-    expect(output).toContain('import type UserDTO from "../schemas/UserDTO";');
-    expect(output).toContain('z.object({ "name": z.string(), "age": z.number() }).strict()');
-    expect(output).toContain(" as unknown as ZodType<UserDTO, UserDTO>;");
+    const output = generateZodSchema("UserDTO", input);
+    expect(output).toContain('import { z } from "zod/v4";');
+    expect(output).toContain("export type TypeOfUserDTO = z.ZodObject<{");
+    expect(output).toContain("name: z.ZodString,");
+    expect(output).toContain("age: z.ZodNumber,");
+    expect(output).toContain("export const schemaOfUserDTO = z.object({");
+    expect(output).toContain("name: z.string(),");
+    expect(output).toContain("age: z.number(),");
+    expect(output).toContain("}) as unknown as TypeOfUserDTO;");
+  });
+
+  it("should handle references to other schemas", () => {
+    const input: SchemaObject = {
+      type: "object",
+      required: ["user"],
+      properties: {
+        user: {
+          $ref: "#/components/schemas/UserDTO",
+        },
+      },
+      additionalProperties: false,
+    };
+    const output = generateZodSchema("UserResponseDTO", input);
+    expect(output).toContain('import { schemaOfUserDTO as UserDTO } from "./UserDTO";');
+    expect(output).toContain("export type TypeOfUserResponseDTO = z.ZodObject<{");
+    expect(output).toContain("user: UserDTO,");
+    expect(output).toContain("export const schemaOfUserResponseDTO = z.object({");
+    expect(output).toContain("user: UserDTO,");
+    expect(output).toContain("}) as unknown as TypeOfUserResponseDTO;");
   });
 });

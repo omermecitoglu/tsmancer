@@ -70,7 +70,7 @@ const options = program.opts<{ source: string, output: string }>();
         "src/schemas",
       );
       await createFile(
-        generateZodSchema(schemaName, schema, spec.components?.schemas ?? {}),
+        generateZodSchema(schemaName, schema),
         `${schemaName}.ts`,
         outputDir,
         "src/zod-schemas",
