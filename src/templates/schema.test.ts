@@ -17,7 +17,7 @@ describe("generateSchema", () => {
       },
       additionalProperties: false,
     };
-    const output = generateSchema("UserDTO", input, {});
+    const output = generateSchema("UserDTO", input);
     expect(output).toContain("type UserDTO = ");
     expect(output).toContain("name: string,");
     expect(output).toContain("age: number,");

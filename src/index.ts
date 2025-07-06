@@ -64,7 +64,7 @@ const options = program.opts<{ source: string, output: string }>();
 
     for (const [schemaName, schema] of Object.entries(schemaDatabase)) {
       await createFile(
-        generateSchema(schemaName, schema, spec.components?.schemas ?? {}),
+        generateSchema(schemaName, schema),
         `${schemaName}.ts`,
         outputDir,
         "src/schemas",
