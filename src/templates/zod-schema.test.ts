@@ -22,7 +22,7 @@ describe("generateZodSchema", () => {
     expect(output).toContain("export type TypeOfUserDTO = z.ZodObject<{");
     expect(output).toContain("name: z.ZodString,");
     expect(output).toContain("age: z.ZodNumber,");
-    expect(output).toContain("export const schemaOfUserDTO = z.object({");
+    expect(output).toContain("export const schemaOfUserDTO = z.strictObject({");
     expect(output).toContain("name: z.string(),");
     expect(output).toContain("age: z.number(),");
     expect(output).toContain("}) as unknown as TypeOfUserDTO;");
@@ -43,7 +43,7 @@ describe("generateZodSchema", () => {
     expect(output).toContain('import { schemaOfUserDTO as UserDTO } from "./UserDTO";');
     expect(output).toContain("export type TypeOfUserResponseDTO = z.ZodObject<{");
     expect(output).toContain("user: UserDTO,");
-    expect(output).toContain("export const schemaOfUserResponseDTO = z.object({");
+    expect(output).toContain("export const schemaOfUserResponseDTO = z.strictObject({");
     expect(output).toContain("user: UserDTO,");
     expect(output).toContain("}) as unknown as TypeOfUserResponseDTO;");
   });
