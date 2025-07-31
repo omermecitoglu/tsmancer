@@ -19,11 +19,12 @@ const program = new Command();
 program
   .option("-s, --source <path>", "Specify the source URL (swagger.json)")
   .option("-o, --output <path>", "Specify the output directory", "dist")
+  .option("--env-name <value>", "Specify the environment variable name", "API_BASE_URL")
   .option("--registry <value>", "Specify the registry service", "npm");
 
 program.parse();
 
-const options = program.opts<{ source: string, output: string, registry: string }>();
+const options = program.opts<{ source: string, output: string, envName: string, registry: string }>();
 
 (async () => {
   try {
@@ -79,7 +80,7 @@ const options = program.opts<{ source: string, output: string, registry: string 
       );
     }
 
-    await createFile(generateUtilForURL("API_BASE_URL"), "createURL.ts", outputDir, "src/utils");
+    await createFile(generateUtilForURL(options.envName), "createURL.ts", outputDir, "src/utils");
     await createFile(generateUtilForZod(options.registry), "parseZodSchema.ts", outputDir, "src/utils");
     const filePath = await createFile(generateInterface(operationIds), "index.ts", outputDir, "src");
 
