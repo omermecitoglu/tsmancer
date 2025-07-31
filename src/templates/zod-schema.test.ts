@@ -47,4 +47,9 @@ describe("generateZodSchema", () => {
     expect(output).toContain("user: UserDTO,");
     expect(output).toContain("}) as unknown as TypeOfUserResponseDTO;");
   });
+
+  it("should import zod from the correct source for JSR", () => {
+    const output = generateZodSchema("Unknown", { type: "string" }, "jsr");
+    expect(output).toContain('import { z } from "npm:zod@4";');
+  });
 });

@@ -10,4 +10,9 @@ describe("generateUtilForZod", () => {
     expect(result).toContain("if (!result.success) throw result.error;");
     expect(result).toContain("return result.data;");
   });
+
+  it("should import zod from the correct source for JSR", () => {
+    const output = generateUtilForZod("jsr");
+    expect(output).toContain("import { type ZodType, type z } from \"npm:zod@4\";");
+  });
 });
