@@ -17,7 +17,7 @@ describe("generateZodSchema", () => {
       },
       additionalProperties: false,
     };
-    const output = generateZodSchema("UserDTO", input);
+    const output = generateZodSchema("UserDTO", input, "npm");
     expect(output).toContain('import { z } from "zod";');
     expect(output).toContain("export type TypeOfUserDTO = z.ZodObject<{");
     expect(output).toContain("name: z.ZodString,");
@@ -39,7 +39,7 @@ describe("generateZodSchema", () => {
       },
       additionalProperties: false,
     };
-    const output = generateZodSchema("UserResponseDTO", input);
+    const output = generateZodSchema("UserResponseDTO", input, "npm");
     expect(output).toContain('import { schemaOfUserDTO as UserDTO } from "./UserDTO";');
     expect(output).toContain("export type TypeOfUserResponseDTO = z.ZodObject<{");
     expect(output).toContain("user: UserDTO,");

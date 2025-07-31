@@ -6,6 +6,7 @@ import { createProgram } from "typescript";
 import generateConfigs from "./core/configs";
 import { fetchOpenApiSpec } from "./core/fetchOpenApiSpec";
 import { createFile } from "./core/file";
+import { generateJsrJon } from "./core/jsr";
 import { generateInterface } from "./templates/interface";
 import { generateOperation } from "./templates/operation";
 import { generateSchema } from "./templates/schema";
@@ -17,11 +18,12 @@ const program = new Command();
 
 program
   .option("-s, --source <path>", "Specify the source URL (swagger.json)")
-  .option("-o, --output <path>", "Specify the output directory", "dist");
+  .option("-o, --output <path>", "Specify the output directory", "dist")
+  .option("--registry <value>", "Specify the registry service", "npm");
 
 program.parse();
 
-const options = program.opts<{ source: string, output: string }>();
+const options = program.opts<{ source: string, output: string, registry: string }>();
 
 (async () => {
   try {
@@ -70,7 +72,7 @@ const options = program.opts<{ source: string, output: string }>();
         "src/schemas",
       );
       await createFile(
-        generateZodSchema(schemaName, schema),
+        generateZodSchema(schemaName, schema, options.registry),
         `${schemaName}.ts`,
         outputDir,
         "src/zod-schemas",
@@ -78,22 +80,25 @@ const options = program.opts<{ source: string, output: string }>();
     }
 
     await createFile(generateUtilForURL("API_BASE_URL"), "createURL.ts", outputDir, "src/utils");
-    await createFile(generateUtilForZod(), "parseZodSchema.ts", outputDir, "src/utils");
+    await createFile(generateUtilForZod(options.registry), "parseZodSchema.ts", outputDir, "src/utils");
     const filePath = await createFile(generateInterface(operationIds), "index.ts", outputDir, "src");
 
-    const tsProgram = createProgram([filePath], {
-      declaration: true,
-      outDir: path.resolve(outputDir, "dist"),
-      module: 99,
-      target: 99,
-      strict: true,
-    });
+    if (options.registry === "jsr") {
+      await createFile(generateJsrJon(), "jsr.json", outputDir);
+    } else {
+      const tsProgram = createProgram([filePath], {
+        declaration: true,
+        outDir: path.resolve(outputDir, "dist"),
+        module: 99,
+        target: 99,
+        strict: true,
+      });
 
-    tsProgram.emit();
+      tsProgram.emit();
 
-    await fs.rm(path.resolve(outputDir, "src"), { recursive: true });
-
-    await createFile(generateConfigs("dist", []) + "\n", "package.json", outputDir);
+      await fs.rm(path.resolve(outputDir, "src"), { recursive: true });
+      await createFile(generateConfigs("dist", []) + "\n", "package.json", outputDir);
+    }
   } catch (error) {
     if (error && typeof error === "object" && "message" in error) {
       // eslint-disable-next-line no-console

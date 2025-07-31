@@ -8,9 +8,10 @@ type Template = {
   schemaName: string,
   zodType: string,
   zodSchema: string,
+  zodSource: string,
 };
 
-export function generateZodSchema(schemaName: string, schema: SchemaObject) {
+export function generateZodSchema(schemaName: string, schema: SchemaObject, registry: string) {
   const zodSchema = generate(schema);
   const zodType = generateZodType(schema);
 
@@ -21,5 +22,6 @@ export function generateZodSchema(schemaName: string, schema: SchemaObject) {
       return body.replace(dependency, `typeof ${dependency}`);
     }, zodType.body),
     zodSchema: zodSchema.body,
+    zodSource: registry === "jsr" ? "npm:zod@4" : "zod",
   });
 }

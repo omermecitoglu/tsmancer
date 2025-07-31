@@ -3,7 +3,7 @@ import { generateUtilForZod } from "./parseZodSchema";
 
 describe("generateUtilForZod", () => {
   it("should generate a Zod schema parsing function", () => {
-    const result = generateUtilForZod();
+    const result = generateUtilForZod("npm");
     expect(result).toContain("import { type ZodType, type z } from \"zod\";");
     expect(result).toContain("export function parseZodSchema");
     expect(result).toContain("schema.safeParse(data)");

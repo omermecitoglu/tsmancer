@@ -1,4 +1,4 @@
-import { type ZodType, type z } from "zod";
+import { type ZodType, type z } from "{{zodSource}}";
 
 export function parseZodSchema<T extends ZodType>(schema: T, data: z.infer<T>) {
   const result = schema.safeParse(data);
