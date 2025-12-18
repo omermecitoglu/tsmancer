@@ -59,8 +59,8 @@
     "zod": "^4"
   },
   "dependencies": {
-    "@omer-x/json-schema-to-zod": "^1.0.0-alpha.5",
-    "@omer-x/typesculptor": "^1.0.0-alpha.1",
+    "@omer-x/json-schema-to-zod": "alpha",
+    "@omer-x/typesculptor": "alpha",
     "handlebars": "^4.7.8"
   },
   "devDependencies": {
