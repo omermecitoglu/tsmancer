@@ -1,5 +1,5 @@
+import type { SchemaObject } from "@omer-x/json-schema-types";
 import type { ParameterObject } from "@omer-x/openapi-types/parameter";
-import type { SchemaObject } from "@omer-x/openapi-types/schema";
 
 /**
  * Creates a schema object from an array of path parameters.

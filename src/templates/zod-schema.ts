@@ -1,7 +1,7 @@
 import { generateZodSchema as generate, generateZodType } from "@omer-x/json-schema-to-zod";
 import render from "~/core/template";
 import zodSchemaTemplate from "./zod-schema.hbs";
-import type { SchemaObject } from "@omer-x/openapi-types/schema";
+import type { SchemaObject } from "@omer-x/json-schema-types";
 
 type Template = {
   dependencies: string[],

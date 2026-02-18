@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import deepEqual from "../utils/deepEqual";
+import type { SchemaObject } from "@omer-x/json-schema-types";
 import type { ReferenceObject } from "@omer-x/openapi-types/reference";
-import type { SchemaObject } from "@omer-x/openapi-types/schema";
 
 /**
  * Finds the name of a schema in the database or generates a new name if not found.

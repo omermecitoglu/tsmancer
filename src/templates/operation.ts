@@ -3,9 +3,9 @@ import { findSchemaName } from "~/core/schema-db";
 import render from "~/core/template";
 import { getJsonSchema } from "~/utils/getJsonSchema";
 import operationTemplate from "./operation.hbs";
+import type { SchemaObject } from "@omer-x/json-schema-types";
 import type { ComponentsObject } from "@omer-x/openapi-types/components";
 import type { OperationObject } from "@omer-x/openapi-types/operation";
-import type { SchemaObject } from "@omer-x/openapi-types/schema";
 
 type Template = {
   importedSchemas: {

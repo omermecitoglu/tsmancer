@@ -1,5 +1,5 @@
+import type { SchemaObject } from "@omer-x/json-schema-types";
 import type { ReferenceObject } from "@omer-x/openapi-types/reference";
-import type { SchemaObject } from "@omer-x/openapi-types/schema";
 
 /**
  * Flattens a schema object by resolving references and recursively processing nested schemas.

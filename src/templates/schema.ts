@@ -1,7 +1,7 @@
 import { generateTypeDefinition } from "@omer-x/typesculptor";
 import render from "~/core/template";
 import schemaTemplate from "./schema.hbs";
-import type { SchemaObject } from "@omer-x/openapi-types/schema";
+import type { SchemaObject } from "@omer-x/json-schema-types";
 
 type Template = {
   dependencies: string[],
