@@ -19,7 +19,7 @@ export function generateZodSchema(schemaName: string, schema: SchemaObject, regi
     dependencies: zodSchema.dependencies,
     schemaName,
     zodType: zodSchema.dependencies.reduce((body, dependency) => {
-      return body.replace(dependency, `typeof ${dependency}`);
+      return body.replaceAll(dependency, `typeof ${dependency}`);
     }, zodType.body),
     zodSchema: zodSchema.body,
     zodSource: registry === "jsr" ? "npm:zod@4" : "zod",

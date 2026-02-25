@@ -69,5 +69,11 @@ describe("generateZodSchema", () => {
       additionalProperties: false,
     }, "npm");
     expect(output).not.toContain("typeof typeof ");
+    expect(output).toContain([
+      "export type TypeOfSchema8AD5850F407746108F55F9025613482C = z.ZodObject<{",
+      "\toffset: typeof Schema0DFB308CE28C4ACFAAEB18F885A82CFA,",
+      "\tlimit: typeof Schema0DFB308CE28C4ACFAAEB18F885A82CFA,",
+      "}>;",
+    ].join("\n"));
   });
 });
