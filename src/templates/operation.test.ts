@@ -1,9 +1,9 @@
 import crypto from "node:crypto";
 import { describe, expect, it, vi } from "vitest";
 import { generateOperation } from "./operation";
+import type { SchemaObject } from "@omer-x/json-schema-types";
 import type { ComponentsObject } from "@omer-x/openapi-types/components";
 import type { OperationObject } from "@omer-x/openapi-types/operation";
-import type { SchemaObject } from "@omer-x/openapi-types/schema";
 
 describe("generateOperation", () => {
   it("should generate operation with correct template", () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { findSchemaName } from "./schema-db";
-import type { SchemaObject } from "@omer-x/openapi-types/schema";
+import type { SchemaObject } from "@omer-x/json-schema-types";
 
 describe("findSchemaName", () => {
   it("should return null if targetSchema is null", () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { generateSchema } from "./schema";
-import type { SchemaObject } from "@omer-x/openapi-types/schema";
+import type { SchemaObject } from "@omer-x/json-schema-types";
 
 describe("generateSchema", () => {
   it("should generate a valid Zod schema and type", () => {

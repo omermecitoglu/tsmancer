@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { flattenSchema } from "./flattenSchema";
+import type { SchemaObject } from "@omer-x/json-schema-types";
 import type { ReferenceObject } from "@omer-x/openapi-types/reference";
-import type { SchemaObject } from "@omer-x/openapi-types/schema";
 
 describe("flattenSchema", () => {
   it("should resolve a $ref schema", () => {

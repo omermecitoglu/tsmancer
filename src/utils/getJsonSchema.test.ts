@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { getJsonSchema } from "./getJsonSchema";
+import type { SchemaObject } from "@omer-x/json-schema-types";
 import type { RequestBodyObject } from "@omer-x/openapi-types/request-body";
 import type { ResponseObject } from "@omer-x/openapi-types/response";
-import type { SchemaObject } from "@omer-x/openapi-types/schema";
 
 describe("getJsonSchema", () => {
   it("should return null if input has no content", () => {
