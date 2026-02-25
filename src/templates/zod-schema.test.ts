@@ -52,4 +52,22 @@ describe("generateZodSchema", () => {
     const output = generateZodSchema("Unknown", { type: "string" }, "jsr");
     expect(output).toContain('import { z } from "npm:zod@4";');
   });
+
+  it("should handle when a dependency used multiple times", () => {
+    const schemaName = "Schema8AD5850F407746108F55F9025613482C";
+    const output = generateZodSchema(schemaName, {
+      type: "object",
+      required: ["offset", "limit"],
+      properties: {
+        offset: {
+          $ref: "#/components/schemas/Schema0DFB308CE28C4ACFAAEB18F885A82CFA", // <--- this is same
+        },
+        limit: {
+          $ref: "#/components/schemas/Schema0DFB308CE28C4ACFAAEB18F885A82CFA", // <--- this is same
+        },
+      },
+      additionalProperties: false,
+    }, "npm");
+    expect(output).not.toContain("typeof typeof ");
+  });
 });
