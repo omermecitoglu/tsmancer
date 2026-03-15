@@ -2,7 +2,7 @@
 import fs from "fs/promises";
 import path from "node:path";
 import { Command } from "commander";
-import { createProgram } from "typescript";
+import { type Node, type SourceFile, type StringLiteral, type TransformerFactory, createProgram, factory, isExportDeclaration, isImportDeclaration, visitEachChild, visitNode } from "typescript";
 import generateConfigs from "./core/configs";
 import { fetchOpenApiSpec } from "./core/fetchOpenApiSpec";
 import { createFile } from "./core/file";
@@ -87,6 +87,44 @@ const options = program.opts<{ source: string, output: string, envName: string, 
     if (options.registry === "jsr") {
       await createFile(generateJsrJon(), "jsr.json", outputDir);
     } else {
+      const addJsExtensionTransformer: TransformerFactory<SourceFile> = context => {
+        return sourceFile => {
+          const visitor = (node: Node): Node => {
+            // Check for Import or Export declarations
+            if ((isImportDeclaration(node) || isExportDeclaration(node)) && node.moduleSpecifier) {
+              const specifier = node.moduleSpecifier as StringLiteral;
+              const _path = specifier.text;
+
+              // If it's a relative path and doesn't have an extension, add .js
+              if (_path.startsWith(".") && !_path.endsWith(".js")) {
+                const newSpecifier = factory.createStringLiteral(`${_path}.js`);
+
+                if (isImportDeclaration(node)) {
+                  return factory.updateImportDeclaration(
+                    node,
+                    node.modifiers,
+                    node.importClause,
+                    newSpecifier,
+                    undefined,
+                  );
+                } else {
+                  return factory.updateExportDeclaration(
+                    node,
+                    node.modifiers,
+                    node.isTypeOnly,
+                    node.exportClause,
+                    newSpecifier,
+                    undefined,
+                  );
+                }
+              }
+            }
+            return visitEachChild(node, visitor, context);
+          };
+          return visitNode(sourceFile, visitor) as SourceFile;
+        };
+      };
+
       const tsProgram = createProgram([filePath], {
         declaration: true,
         outDir: path.resolve(outputDir, "dist"),
@@ -95,7 +133,9 @@ const options = program.opts<{ source: string, output: string, envName: string, 
         strict: true,
       });
 
-      tsProgram.emit();
+      tsProgram.emit(undefined, undefined, undefined, undefined, {
+        after: [addJsExtensionTransformer],
+      });
 
       await fs.rm(path.resolve(outputDir, "src"), { recursive: true });
       await createFile(generateConfigs("dist", []) + "\n", "package.json", outputDir);
