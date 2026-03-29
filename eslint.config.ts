@@ -6,4 +6,7 @@ export default [
     rules: {
     },
   },
+  {
+    ignores: ["bin/*"],
+  },
 ];
