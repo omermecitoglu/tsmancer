@@ -63,6 +63,7 @@
   "dependencies": {
     "@omer-x/json-schema-to-zod": "alpha",
     "@omer-x/typesculptor": "alpha",
+    "change-case": "^5.4.4",
     "handlebars": "^4.7.9"
   },
   "devDependencies": {
