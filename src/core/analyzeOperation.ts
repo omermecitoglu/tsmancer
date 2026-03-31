@@ -1,3 +1,4 @@
+import { camelCase } from "change-case";
 import { bringParameterFromRefs } from "~/utils/bringParameterFromRefs";
 import { bringRequestBodyFromRefs } from "~/utils/bringRequestBodyFromRefs";
 import { bringResponseFromRefs } from "~/utils/bringResponseFromRefs";
@@ -23,7 +24,7 @@ export function analyzeOperation(operation: OperationObject, components: Compone
   }));
 
   return {
-    id: operation.operationId,
+    id: camelCase(operation.operationId),
     pathParameters,
     queryParameters: createParametersSchema(queryParameters),
     requestBody,

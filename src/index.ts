@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from "fs/promises";
 import path from "node:path";
+import { camelCase } from "change-case";
 import { Command } from "commander";
 import { type Node, type SourceFile, type StringLiteral, type TransformerFactory, createProgram, factory, isExportDeclaration, isImportDeclaration, visitEachChild, visitNode } from "typescript";
 import generateConfigs from "./core/configs";
@@ -54,7 +55,7 @@ const options = program.opts<{ source: string, output: string, envName: string, 
         if (typeof operation !== "object") continue;
         if ("operationId" in operation && operation.operationId) {
           const tags = (operation.tags ?? []).join(", ") || "Misc.";
-          operationIds[tags] = [...(operationIds[tags] ?? []), operation.operationId];
+          operationIds[tags] = [...(operationIds[tags] ?? []), camelCase(operation.operationId)];
           await createFile(
             generateOperation(method, pathName, operation, schemaDatabase, spec.components),
             `${operation.operationId}.ts`,
