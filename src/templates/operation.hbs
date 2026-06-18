@@ -66,7 +66,7 @@ export default async function(
     }
     {{/each}}
     default: {
-      throw new Error(`Undocumented response from {{operationId}} ({{method}} ${ {{~{endpoint}~}} })`);
+      throw new Error(`Undocumented response from {{operationId}} ({{method}} ${ {{~{endpoint}~}} }) (Status: ${response.status})`);
     }
   }
 }
