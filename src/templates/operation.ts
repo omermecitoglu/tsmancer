@@ -12,7 +12,6 @@ type Template = {
     schemaName: string,
     validation: boolean,
   }[],
-  isCacheable: boolean,
   method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE",
   endpoint: string,
   operationId: string,
@@ -89,7 +88,6 @@ export function generateOperation(
 
   return render<Template>(operationTemplate)({
     importedSchemas: dependencies.filter(dep => dep.schemaName && dep.schemaName !== "unknown"),
-    isCacheable: method === "GET",
     method,
     endpoint: operation.pathParameters.length ? `\`${pathName.replaceAll("{", "${")}\`` : `"${pathName}"`,
     operationId: operation.id,

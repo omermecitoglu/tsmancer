@@ -15,9 +15,6 @@ import { parseZodSchema } from "../utils/parseZodSchema";
  */
 {{/if}}
 export default async function(
-  {{#if isCacheable}}
-  cacheTags: string | string[] | null,
-  {{/if}}
   {{#each pathParameters}}
   {{name}}: {{schemaName}},
   {{/each}}
@@ -43,12 +40,6 @@ export default async function(
     },
     {{#if requestBody}}
     body: JSON.stringify(parseZodSchema(schemaOf{{requestBody.schemaName}}, requestBody)),
-    {{/if}}
-    {{#if isCacheable}}
-    cache: cacheTags ? "force-cache" : "no-store",
-    next: {
-      tags: cacheTags ? [cacheTags].flat() : undefined,
-    }
     {{/if}}
   });
   switch (response.status) {
