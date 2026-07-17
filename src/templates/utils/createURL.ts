@@ -1,5 +1,5 @@
 import render from "~/core/template";
-import template from "./createURL.hbs";
+import template from "./createURL.hbs?raw";
 
 type Template = {
   envName: string,

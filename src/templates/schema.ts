@@ -1,6 +1,6 @@
 import { generateTypeDefinition } from "@omer-x/typesculptor";
 import render from "~/core/template";
-import schemaTemplate from "./schema.hbs";
+import schemaTemplate from "./schema.hbs?raw";
 import type { SchemaObject } from "@omer-x/json-schema-types";
 
 type Template = {

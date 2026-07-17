@@ -1,5 +1,5 @@
 import render from "~/core/template";
-import template from "./parseZodSchema.hbs";
+import template from "./parseZodSchema.hbs?raw";
 
 type Template = {
   zodSource: string,

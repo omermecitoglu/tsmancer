@@ -2,7 +2,7 @@ import { analyzeOperation } from "~/core/analyzeOperation";
 import { findSchemaName } from "~/core/schema-db";
 import render from "~/core/template";
 import { getJsonSchema } from "~/utils/getJsonSchema";
-import operationTemplate from "./operation.hbs";
+import operationTemplate from "./operation.hbs?raw";
 import type { SchemaObject } from "@omer-x/json-schema-types";
 import type { ComponentsObject } from "@omer-x/openapi-types/components";
 import type { OperationObject } from "@omer-x/openapi-types/operation";

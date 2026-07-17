@@ -1,6 +1,6 @@
 import { generateZodSchema as generate, generateZodType } from "@omer-x/json-schema-to-zod";
 import render from "~/core/template";
-import zodSchemaTemplate from "./zod-schema.hbs";
+import zodSchemaTemplate from "./zod-schema.hbs?raw";
 import type { SchemaObject } from "@omer-x/json-schema-types";
 
 type Template = {

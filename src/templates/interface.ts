@@ -1,5 +1,5 @@
 import render from "~/core/template";
-import template from "./interface.hbs";
+import template from "./interface.hbs?raw";
 
 type Template = {
   operations: { tags: string, operationIds: string[] }[],
