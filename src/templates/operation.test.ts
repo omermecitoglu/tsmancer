@@ -61,7 +61,7 @@ describe("generateOperation", () => {
     expect(output).toContain("switch (response.status) {");
     expect(output).toContain("case 200: {");
     expect(output).toContain("const content = await response.json() as ObjectSchema;");
-    expect(output).toContain("throw new Error(`Undocumented response from test (GET ${`/example/${id}`})`);");
+    expect(output).toContain("throw new Error(`Undocumented response from test (GET ${`/example/${id}`}) (Status: ${response.status})`);");
   });
 
   it("should handle operations without parameters", () => {
@@ -90,7 +90,7 @@ describe("generateOperation", () => {
     expect(output).toContain("switch (response.status) {");
     expect(output).toContain("case 201: {");
     expect(output).toContain("const content = null;");
-    expect(output).toContain('throw new Error(`Undocumented response from test (POST ${"/example"})`);');
+    expect(output).toContain('throw new Error(`Undocumented response from test (POST ${"/example"}) (Status: ${response.status})`);');
   });
 
   it("should handle operations with query parameters", () => {
@@ -144,7 +144,7 @@ describe("generateOperation", () => {
     expect(output).toContain("switch (response.status) {");
     expect(output).toContain("case 200: {");
     expect(output).toContain("const content = await response.json() as ObjectSchema;");
-    expect(output).toContain('throw new Error(`Undocumented response from testQuery (GET ${"/example"})`);');
+    expect(output).toContain('throw new Error(`Undocumented response from testQuery (GET ${"/example"}) (Status: ${response.status})`);');
 
     vi.restoreAllMocks();
   });
@@ -197,7 +197,7 @@ describe("generateOperation", () => {
     expect(output).toContain("switch (response.status) {");
     expect(output).toContain("case 200: {");
     expect(output).toContain("const content = await response.json() as ObjectSchema;");
-    expect(output).toContain('throw new Error(`Undocumented response from testRequestBody (POST ${"/example"})`);');
+    expect(output).toContain('throw new Error(`Undocumented response from testRequestBody (POST ${"/example"}) (Status: ${response.status})`);');
   });
 
   it("should handle operations with path parameters", () => {
@@ -249,7 +249,7 @@ describe("generateOperation", () => {
     expect(output).toContain("switch (response.status) {");
     expect(output).toContain("case 200: {");
     expect(output).toContain("const content = await response.json() as ObjectSchema;");
-    expect(output).toContain("throw new Error(`Undocumented response from testPathParameters (GET ${`/example/${id}`})`);");
+    expect(output).toContain("throw new Error(`Undocumented response from testPathParameters (GET ${`/example/${id}`}) (Status: ${response.status})`);");
   });
 
   it("should handle operations with path parameters without description", () => {
@@ -300,7 +300,7 @@ describe("generateOperation", () => {
     expect(output).toContain("switch (response.status) {");
     expect(output).toContain("case 200: {");
     expect(output).toContain("const content = await response.json() as ObjectSchema;");
-    expect(output).toContain("throw new Error(`Undocumented response from test (GET ${`/example/${id}`})`);");
+    expect(output).toContain("throw new Error(`Undocumented response from test (GET ${`/example/${id}`}) (Status: ${response.status})`);");
   });
 
   it("should handle operations with path parameters, query parameters, and request body without schema", () => {
@@ -347,6 +347,6 @@ describe("generateOperation", () => {
     expect(output).toContain("body: JSON.stringify(parseZodSchema(schemaOfunknown, requestBody)),");
     expect(output).toContain("switch (response.status) {");
     expect(output).toContain("case 200: {");
-    expect(output).toContain("throw new Error(`Undocumented response from testNoSchema (POST ${`/example/${id}`})`);");
+    expect(output).toContain("throw new Error(`Undocumented response from testNoSchema (POST ${`/example/${id}`}) (Status: ${response.status})`);");
   });
 });
